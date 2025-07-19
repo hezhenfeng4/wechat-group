@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>扫码加入微信群</title>
+    <title>健身减脂餐预订交流群</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,6 @@
         
         body {
             font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
             background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
             color: #333;
             padding: 20px;
@@ -38,6 +37,7 @@
         .header p {
             color: #666;
             font-size: 16px;
+            font-weight: bold;
         }
         
         .container {
@@ -49,7 +49,6 @@
             max-width: 500px;
             text-align: center;
             position: relative;
-            overflow: hidden;
         }
         
         .container::before {
@@ -65,9 +64,7 @@
         .status-container {
             display: flex;
             justify-content: center;
-            align-items: center;
             margin: 20px 0;
-            gap: 10px;
         }
         
         .status {
@@ -75,46 +72,23 @@
             border-radius: 30px;
             font-weight: bold;
             font-size: 16px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .valid {
             background: #e6f7ee;
             color: #07C160;
             border: 1px solid #b3e6cc;
         }
         
-        .invalid {
-            background: #fdeeee;
-            color: #f5222d;
-        }
-        
-        .status-icon {
-            margin-right: 8px;
-            font-size: 18px;
-        }
-        
         .qr-container {
             margin: 25px auto;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 12px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            position: relative;
-            max-width: 260px;
         }
         
         .qr-code {
-            width: 220px;
-            height: 220px;
+            width: 240px;
+            height: 240px;
             border: 1px solid #eee;
             background-size: cover;
             background-position: center;
-            display: block;
         }
         
         .tips {
@@ -130,9 +104,6 @@
         .tips h3 {
             margin-bottom: 12px;
             color: #09a1ed;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         
         .tips ul {
@@ -180,20 +151,13 @@
         
         .update-time {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.7);
             padding: 8px 15px;
             border-radius: 20px;
-            backdrop-filter: blur(5px);
         }
         
         @media (max-width: 480px) {
             .container {
                 padding: 20px;
-            }
-            
-            .qr-code {
-                width: 200px;
-                height: 200px;
             }
         }
     </style>
@@ -206,18 +170,17 @@
     
     <div class="container">
         <div class="status-container">
-            <div class="status valid">
-                <span class="status-icon">✓</span>
+            <div class="status">
                 <span>当前群状态：可加入</span>
             </div>
         </div>
         
         <div class="qr-container">
-            <img class="qr-code" src="https://github.com/hezhenfeng4/wechat-group/blob/main/%7BF1E609B0-237A-4FC5-8B25-7D21F02CB82B%7D.png?raw=true" alt="微信群二维码">
+            <img class="qr-code" src="https://github.com/hezhenfeng4/wechat-group/blob/main/%7BF1E609B0-237A-4FC5-8B25-7D21F02CB82B%7D.png?raw=true" alt="健身减脂餐预订交流群二维码">
         </div>
         
         <div class="tips">
-            <h3><span>📌</span> 使用提示：</h3>
+            <h3>使用提示：</h3>
             <ul>
                 <li>长按上方二维码识别加入群聊</li>
                 <li>请勿在群内发布广告或不良信息</li>
