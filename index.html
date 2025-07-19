@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>加入微信群</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            background: #f5f7fa;
+            color: #333;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #07C160;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .qr-container {
+            margin: 25px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .qr-code {
+            width: 220px;
+            height: 220px;
+            border: 1px solid #eee;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .valid {
+            background: #e6f7ee;
+            color: #07C160;
+        }
+        .invalid {
+            background: #fdeeee;
+            color: #f5222d;
+        }
+        .tips {
+            background: #e6f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 14px;
+        }
+        .btn {
+            display: inline-block;
+            background: #07C160;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #06ad56;
+            transform: translateY(-2px);
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>扫码加入微信群</h1>
+        
+        <div class="status valid">当前群状态：可加入 (剩余<span id="count">185</span>个名额)</div>
+        
+        <div class="qr-container">
+            <img id="currentQr" class="qr-code" src="https://raw.githubusercontent.com/你的用户名/wechat-group/main/主群1.jpg" alt="微信群二维码">
+        </div>
+        
+        <div class="tips">
+            <p>📌 使用提示：</p>
+            <p>1. 长按上方二维码识别加入群聊</p>
+            <p>2. 若群满/失效，系统会自动切换到新群</p>
+            <p>3. 遇到问题请联系客服微信：<strong>GroupHelper</strong></p>
+        </div>
+        
+        <div>
+            <a href="#" class="btn" onclick="switchGroup()">切换到备用群</a>
+            <a href="weixin://" class="btn">打开微信</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>群状态更新时间：<span id="updateTime">2023年7月20日</span></p>
+    </div>
+
+    <script>
+        // 群组数据 - 需要手动更新
+        const groups = [
+            { 
+                name: "主群1", 
+                url: "https://raw.githubusercontent.com/你的用户名/wechat-group/main/主群1.jpg",
+                valid: true,
+                count: 185,
+                lastUpdate: "2023-07-20"
+            },
+            { 
+                name: "主群2", 
+                url: "https://raw.githubusercontent.com/你的用户名/wechat-group/main/主群2.jpg",
+                valid: true,
+                count: 200,
+                lastUpdate: "2023-07-18"
+            },
+            { 
+                name: "备用群1", 
+                url: "https://raw.githubusercontent.com/你的用户名/wechat-group/main/备用群1.jpg",
+                valid: true,
+                count: 200,
+                lastUpdate: "2023-07-15"
+            }
+        ];
+        
+        // 获取当前有效群组
+        function getCurrentGroup() {
+            return groups.find(group => group.valid);
+        }
+        
+        // 更新页面显示的二维码
+        function updateQrDisplay() {
+            const currentGroup = getCurrentGroup();
+            if(currentGroup) {
+                document.getElementById('currentQr').src = currentGroup.url;
+                document.getElementById('count').textContent = currentGroup.count;
+                document.getElementById('updateTime').textContent = formatDate(currentGroup.lastUpdate);
+            }
+        }
+        
+        // 切换群组（手动）
+        function switchGroup() {
+            const currentIndex = groups.findIndex(group => group.valid);
+            const nextIndex = (currentIndex + 1) % groups.length;
+            
+            groups.forEach(group => group.valid = false);
+            groups[nextIndex].valid = true;
+            
+            updateQrDisplay();
+            alert(`已切换到${groups[nextIndex].name}`);
+        }
+        
+        // 日期格式化
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日`;
+        }
+        
+        // 初始化页面
+        window.onload = function() {
+            updateQrDisplay();
+            
+            // 模拟自动检查（实际使用需自行实现）
+            setInterval(() => {
+                document.getElementById('count').textContent = 
+                    Math.max(0, parseInt(document.getElementById('count').textContent) - 1);
+            }, 30000); // 每30秒减少一个名额（模拟）
+        };
+    </script>
+</body>
+</html>
