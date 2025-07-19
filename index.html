@@ -96,37 +96,25 @@
         }
         
         .qr-container {
-            margin: 25px 0;
+            margin: 25px auto;
             padding: 20px;
             background: #f9f9f9;
             border-radius: 12px;
-            display: inline-block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             position: relative;
+            max-width: 260px;
         }
         
         .qr-code {
             width: 220px;
             height: 220px;
             border: 1px solid #eee;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #999;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 24 24"><rect width="24" height="24" fill="%2307C160"/><text x="12" y="16" font-family="Arial" font-size="10" fill="white" text-anchor="middle">微信群二维码</text></svg>');
             background-size: cover;
-        }
-        
-        .group-info {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #666;
-            background: #f0f9ff;
-            padding: 10px;
-            border-radius: 8px;
-            display: inline-block;
+            background-position: center;
+            display: block;
         }
         
         .tips {
@@ -181,47 +169,6 @@
             font-size: 16px;
         }
         
-        .btn-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #07C160;
-            color: white;
-            padding: 14px 28px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(7, 193, 96, 0.25);
-        }
-        
-        .btn:hover {
-            background: #06ad56;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(7, 193, 96, 0.35);
-        }
-        
-        .btn.secondary {
-            background: #09a1ed;
-            box-shadow: 0 4px 10px rgba(9, 161, 237, 0.25);
-        }
-        
-        .btn.secondary:hover {
-            background: #098ed4;
-            box-shadow: 0 6px 15px rgba(9, 161, 237, 0.35);
-        }
-        
         .footer {
             margin-top: 25px;
             font-size: 13px;
@@ -239,22 +186,9 @@
             backdrop-filter: blur(5px);
         }
         
-        .wechat-icon {
-            font-size: 20px;
-        }
-        
         @media (max-width: 480px) {
             .container {
                 padding: 20px;
-            }
-            
-            .btn-container {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .btn {
-                width: 100%;
             }
             
             .qr-code {
@@ -267,7 +201,7 @@
 <body>
     <div class="header">
         <h1>扫码加入微信群</h1>
-        <p>与志同道合的朋友一起交流</p>
+        <p>健身减脂餐预订交流群</p>
     </div>
     
     <div class="container">
@@ -279,31 +213,20 @@
         </div>
         
         <div class="qr-container">
-            <div class="qr-code"></div>
+            <img class="qr-code" src="https://github.com/hezhenfeng4/wechat-group/blob/main/%7BF1E609B0-237A-4FC5-8B25-7D21F02CB82B%7D.png?raw=true" alt="微信群二维码">
         </div>
-        
-        <div class="group-info">主群1 · 交流学习群</div>
         
         <div class="tips">
             <h3><span>📌</span> 使用提示：</h3>
             <ul>
                 <li>长按上方二维码识别加入群聊</li>
-                <li>若群满/失效，系统会自动切换到新群</li>
                 <li>请勿在群内发布广告或不良信息</li>
+                <li>进群后请修改群昵称为：姓名-区域</li>
             </ul>
         </div>
         
         <div class="contact">
             遇到问题请加老板微信：<strong>alq11290719</strong>
-        </div>
-        
-        <div class="btn-container">
-            <button class="btn" onclick="switchGroup()">
-                <span>🔄</span> 切换到备用群
-            </button>
-            <a href="weixin://" class="btn secondary">
-                <span class="wechat-icon">💬</span> 打开微信
-            </a>
         </div>
     </div>
     
@@ -333,30 +256,8 @@
             document.getElementById('updateTime').textContent = formatDate(yesterday);
         }
         
-        // 模拟群组切换
-        function switchGroup() {
-            const groups = ["主群1", "主群2", "备用群1", "备用群2"];
-            const currentGroup = document.querySelector('.group-info');
-            const randomIndex = Math.floor(Math.random() * groups.length);
-            currentGroup.textContent = groups[randomIndex] + " · 交流学习群";
-            
-            // 显示切换成功提示
-            const statusContainer = document.querySelector('.status-container');
-            const msg = document.createElement('div');
-            msg.className = 'status valid';
-            msg.innerHTML = `<span class="status-icon">✓</span> 已切换到${groups[randomIndex]}`;
-            statusContainer.appendChild(msg);
-            
-            // 3秒后移除提示
-            setTimeout(() => {
-                if (msg.parentNode === statusContainer) {
-                    statusContainer.removeChild(msg);
-                }
-            }, 3000);
-        }
-        
         // 页面加载时设置更新时间
-        window.addEventListener('DOMContentLoaded', setUpdateTime);
+        document.addEventListener('DOMContentLoaded', setUpdateTime);
     </script>
 </body>
 </html>
