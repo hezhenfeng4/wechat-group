@@ -1,185 +1,358 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>加入微信群</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫码加入微信群</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
             font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
-            background: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
             color: #333;
             padding: 20px;
-            max-width: 500px;
-            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .header h1 {
+            color: #07C160;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
         .container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
             padding: 30px;
-            margin-top: 30px;
+            width: 100%;
+            max-width: 500px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        h1 {
-            color: #07C160;
-            font-size: 24px;
-            margin-bottom: 20px;
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #07C160, #09a1ed);
         }
-        .qr-container {
-            margin: 25px 0;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            display: inline-block;
+        
+        .status-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
         }
-        .qr-code {
-            width: 220px;
-            height: 220px;
-            border: 1px solid #eee;
-        }
+        
         .status {
-            padding: 10px;
-            border-radius: 6px;
-            margin: 15px 0;
+            padding: 12px 20px;
+            border-radius: 30px;
             font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
         }
+        
         .valid {
             background: #e6f7ee;
             color: #07C160;
+            border: 1px solid #b3e6cc;
         }
+        
         .invalid {
             background: #fdeeee;
             color: #f5222d;
         }
+        
+        .status-icon {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        .qr-container {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .qr-code {
+            width: 220px;
+            height: 220px;
+            border: 1px solid #eee;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #999;
+        }
+        
+        .group-info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            background: #f0f9ff;
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
         .tips {
             background: #e6f7ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
             text-align: left;
-            font-size: 14px;
+            font-size: 15px;
+            border-left: 4px solid #09a1ed;
         }
+        
+        .tips h3 {
+            margin-bottom: 12px;
+            color: #09a1ed;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tips ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+        
+        .tips li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .tips li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #07C160;
+            font-size: 18px;
+        }
+        
+        .contact {
+            background: #fff8e6;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 15px;
+            text-align: center;
+            border: 1px dashed #ffc53d;
+        }
+        
+        .contact strong {
+            color: #fa8c16;
+            font-size: 16px;
+        }
+        
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: #07C160;
             color: white;
-            padding: 12px 25px;
-            border-radius: 6px;
+            padding: 14px 28px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
-            margin: 10px 5px;
             transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(7, 193, 96, 0.25);
         }
+        
         .btn:hover {
             background: #06ad56;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(7, 193, 96, 0.35);
         }
+        
+        .btn.secondary {
+            background: #09a1ed;
+            box-shadow: 0 4px 10px rgba(9, 161, 237, 0.25);
+        }
+        
+        .btn.secondary:hover {
+            background: #098ed4;
+            box-shadow: 0 6px 15px rgba(9, 161, 237, 0.35);
+        }
+        
         .footer {
             margin-top: 25px;
             font-size: 13px;
-            color: #999;
+            color: #888;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .update-time {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .wechat-icon {
+            font-size: 20px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .qr-code {
+                width: 200px;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="header">
         <h1>扫码加入微信群</h1>
-        
-        <div class="status valid">当前群状态：可加入 (剩余<span id="count">185</span>个名额)</div>
+        <p>与志同道合的朋友一起交流</p>
+    </div>
+    
+    <div class="container">
+        <div class="status-container">
+            <div class="status valid">
+                <span class="status-icon">✓</span>
+                <span>当前群状态：可加入</span>
+            </div>
+        </div>
         
         <div class="qr-container">
-            <img id="currentQr" class="qr-code" src="https://raw.githubusercontent.com/你的用户名/wechat-group/main/主群1.jpg" alt="微信群二维码">
+            <div class="qr-code">微信群二维码</div>
         </div>
+        
+        <div class="group-info">主群1 · 交流学习群</div>
         
         <div class="tips">
-            <p>📌 使用提示：</p>
-            <p>1. 长按上方二维码识别加入群聊</p>
-            <p>2. 若群满/失效，系统会自动切换到新群</p>
-            <p>3. 遇到问题请联系客服微信：<strong>GroupHelper</strong></p>
+            <h3><span>📌</span> 使用提示：</h3>
+            <ul>
+                <li>长按上方二维码识别加入群聊</li>
+                <li>若群满/失效，系统会自动切换到新群</li>
+                <li>请勿在群内发布广告或不良信息</li>
+            </ul>
         </div>
         
-        <div>
-            <a href="#" class="btn" onclick="switchGroup()">切换到备用群</a>
-            <a href="weixin://" class="btn">打开微信</a>
+        <div class="contact">
+            遇到问题请加老板微信：<strong>alq11290719</strong>
+        </div>
+        
+        <div class="btn-container">
+            <button class="btn" onclick="switchGroup()">
+                <span>🔄</span> 切换到备用群
+            </button>
+            <a href="weixin://" class="btn secondary">
+                <span class="wechat-icon">💬</span> 打开微信
+            </a>
         </div>
     </div>
     
     <div class="footer">
-        <p>群状态更新时间：<span id="updateTime">2023年7月20日</span></p>
+        <p class="update-time">群状态更新时间：<span id="updateTime"></span></p>
     </div>
 
     <script>
-        // 群组数据 - 需要手动更新
-        const groups = [
-            { 
-                name: "主群1", 
-                url: "https://raw.githubusercontent.com/你的用户名/wechat-group/main/主群1.jpg",
-                valid: true,
-                count: 185,
-                lastUpdate: "2023-07-20"
-            },
-            { 
-                name: "主群2", 
-                url: "https://raw.githubusercontent.com/你的用户名/wechat-group/main/主群2.jpg",
-                valid: true,
-                count: 200,
-                lastUpdate: "2023-07-18"
-            },
-            { 
-                name: "备用群1", 
-                url: "https://raw.githubusercontent.com/你的用户名/wechat-group/main/备用群1.jpg",
-                valid: true,
-                count: 200,
-                lastUpdate: "2023-07-15"
-            }
-        ];
-        
-        // 获取当前有效群组
-        function getCurrentGroup() {
-            return groups.find(group => group.valid);
+        // 获取昨天的日期
+        function getYesterdayDate() {
+            const date = new Date();
+            date.setDate(date.getDate() - 1);
+            return date;
         }
         
-        // 更新页面显示的二维码
-        function updateQrDisplay() {
-            const currentGroup = getCurrentGroup();
-            if(currentGroup) {
-                document.getElementById('currentQr').src = currentGroup.url;
-                document.getElementById('count').textContent = currentGroup.count;
-                document.getElementById('updateTime').textContent = formatDate(currentGroup.lastUpdate);
-            }
+        // 格式化日期
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}年${month}月${day}日`;
         }
         
-        // 切换群组（手动）
+        // 设置更新时间
+        function setUpdateTime() {
+            const yesterday = getYesterdayDate();
+            document.getElementById('updateTime').textContent = formatDate(yesterday);
+        }
+        
+        // 模拟群组切换
         function switchGroup() {
-            const currentIndex = groups.findIndex(group => group.valid);
-            const nextIndex = (currentIndex + 1) % groups.length;
+            const groups = ["主群1", "主群2", "备用群1", "备用群2"];
+            const currentGroup = document.querySelector('.group-info');
+            const randomIndex = Math.floor(Math.random() * groups.length);
+            currentGroup.textContent = groups[randomIndex] + " · 交流学习群";
             
-            groups.forEach(group => group.valid = false);
-            groups[nextIndex].valid = true;
+            // 显示切换成功提示
+            const statusContainer = document.querySelector('.status-container');
+            const msg = document.createElement('div');
+            msg.className = 'status valid';
+            msg.innerHTML = `<span class="status-icon">✓</span> 已切换到${groups[randomIndex]}`;
+            statusContainer.appendChild(msg);
             
-            updateQrDisplay();
-            alert(`已切换到${groups[nextIndex].name}`);
+            // 3秒后移除提示
+            setTimeout(() => {
+                statusContainer.removeChild(msg);
+            }, 3000);
         }
         
-        // 日期格式化
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            return `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日`;
-        }
-        
-        // 初始化页面
-        window.onload = function() {
-            updateQrDisplay();
-            
-            // 模拟自动检查（实际使用需自行实现）
-            setInterval(() => {
-                document.getElementById('count').textContent = 
-                    Math.max(0, parseInt(document.getElementById('count').textContent) - 1);
-            }, 30000); // 每30秒减少一个名额（模拟）
-        };
+        // 页面加载时设置更新时间
+        window.onload = setUpdateTime;
     </script>
 </body>
 </html>
